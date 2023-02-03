@@ -6,7 +6,7 @@
  const User = () => {
     const USER = [
      {name:"eren" ,
-     id:1,
+     id:"u1",
      image:"/images/img1.jpg",
      placesCount:5}
     ]
