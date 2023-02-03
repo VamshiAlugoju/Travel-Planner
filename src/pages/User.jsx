@@ -12,7 +12,6 @@
     ]
    return (
       <div>
-        
        <Userlist items = {USER}/>
       </div>
    )

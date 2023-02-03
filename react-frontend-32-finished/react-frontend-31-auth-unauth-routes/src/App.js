@@ -1,17 +1,18 @@
- import {BrowserRouter as Router , Route , Redirect,Switch} from "react-router-dom"
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 
-import User from "./pages/User"
-import MainNavigation from "./shared/components/Navigation/MainNavigation"
-import PlaceList from "./places/components/PlaceList"
-import UserPlaces from "./places/pages/UserPlaces"
-import NewPlace from "./places/pages/NewPlace"
-import UpdatePlace from "./places/pages/UpdatePlace"
-import Auth from "./pages/Auth"
-import { AuthContext } from "./shared/context/auth-context"
-import { useCallback , useState } from "react"
-   
-
+import Users from './user/pages/Users';
+import NewPlace from './places/pages/NewPlace';
+import UserPlaces from './places/pages/UserPlaces';
+import UpdatePlace from './places/pages/UpdatePlace';
+import Auth from './user/pages/Auth';
+import MainNavigation from './shared/components/Navigation/MainNavigation';
+import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,7 +31,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <User />
+          <Users />
         </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
@@ -48,7 +49,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <User />
+          <Users />
         </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
@@ -74,5 +75,3 @@ const App = () => {
 };
 
 export default App;
-
- 
