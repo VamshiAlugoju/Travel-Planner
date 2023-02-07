@@ -1,18 +1,35 @@
  
- import React from 'react'
+ import React , {useEffect , useState} from 'react'
  import Userlist from '../components/Userlist'
-
- 
+import { MoonLoader } from 'react-spinners'
+import './Auth.css';
  const User = () => {
-    const USER = [
-     {name:"eren" ,
-     id:"u1",
-     image:"/images/img1.jpg",
-     placesCount:5}
-    ]
+   
+   const[loading , setloading] = useState(false)
+    const[ User,setUser] = useState([])
+
+   useEffect(()=>{
+      
+      setloading(true)
+
+     fetch("http://localhost:5000/api/users").then(res=>res.json()).then(data=>{
+      setUser(data)
+      setloading(false)
+   })
+     .catch(err=>{
+      setloading(false)
+      console.log(err)
+     })
+
+   } , [])
+  
    return (
       <div>
-       <Userlist items = {USER}/>
+        {loading ? <div className='spinner' >
+     <MoonLoader color='green' loading={loading} size="70px" />
+     </div> : 
+       <Userlist items = {User}/>
+     } 
       </div>
    )
  }

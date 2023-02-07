@@ -26,7 +26,8 @@ function PlaceItem(props) {
    const ConfirmDeleteHandler = ()=>{console.log("deleting")}
    
     return ( 
-       <>
+       <>  
+         {/*   this model appear when we click show map   */}
            <Modal 
             show={showMap}
             onCancel = {closeMapHandler}
@@ -40,6 +41,7 @@ function PlaceItem(props) {
             </div>
              </Modal> 
             
+         {/*   this model appear when we click  delete map   */}
             <Modal 
               show = {showConfirmModal}
               onCancel = {CancelDeleteHandler}

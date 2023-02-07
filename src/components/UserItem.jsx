@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 
 
 function UserItem(props){
-    console.log(props.placesCount)
+   
 return(
     <li className='user-item' >
     

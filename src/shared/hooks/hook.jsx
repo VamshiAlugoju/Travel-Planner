@@ -39,7 +39,7 @@ export const useForm = (initialInputs, initialFormValidity) => {
     dispatch({
       type: 'INPUT_CHANGE',
       value: value,
-      isValid: isValid,
+      isValid: isValid, 
       inputId: id
     });
   }, []);
