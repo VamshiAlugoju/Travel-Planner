@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { MoonLoader } from 'react-spinners';
 import Input from '../../shared/components/Button/Input';
 import Button from '../../shared/components/Button/Button';
 import {
@@ -9,42 +9,17 @@ import {
   VALIDATOR_MINLENGTH
 } from '../../shared/components/validators';
 import { useForm } from '../../shared/hooks/hook';
+import useHttpClient from '../../shared/hooks/http-hook';
 
 import "./NewPlace.css"
- 
-const DUMMY_PLACES = [
-  {
-    id: 'p1',
-    title: 'Empire State Building',
-    description: 'One of the most famous sky scrapers in the world!',
-    imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
-    address: '20 W 34th St, New York, NY 10001',
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584
-    },
-    creator: 'u1'
-  },
-  {
-    id: 'p2',
-    title: 'Empire State Building',
-    description: 'One of the most famous sky scrapers in the world!',
-    imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
-    address: '20 W 34th St, New York, NY 10001',
-    location: {
-      lat: 40.7484405,
-      lng: -73.9878584
-    },
-    creator: 'u2'
-  }
-];
+  
+  
+
 
 const UpdatePlace = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const placeId = useParams().placeId;
-
+  const {isLoading , sendRequest} = useHttpClient()
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
@@ -59,52 +34,80 @@ const UpdatePlace = () => {
     false
   );
 
-  const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
+  const[ loadedPlace , setloadedPlace ]= useState()
 
   useEffect(() => {
+      
+     (async function(){
+             try{
 
-    if(identifiedPlace)
-    {
-      setFormData(
-        {
-          title: {
-            value: identifiedPlace.title,
-            isValid: true
-          },
-          description: {
-            value: identifiedPlace.description,
-            isValid: true
-          }
-        },
-        true
-      );
-    }
-   
-    setIsLoading(false);
-  }, [setFormData, identifiedPlace]);
+               let place =  await sendRequest(`http://localhost:5000/api/Places/${placeId}`)
+               setloadedPlace(place.place);
+               setFormData(
+                 {
+                   title: {
+                     value: loadedPlace.title,
+                     isValid: true
+                   },
+                   description: {
+                     value: loadedPlace.description,
+                     isValid: true
+                   }
+                 },
+                 true
+               );
+
+             }catch(err){}
+     })()
+    
+  }, [setFormData,sendRequest, placeId]);
 
   const placeUpdateSubmitHandler = event => {
     event.preventDefault();
+      
+
+        ( async function (){
+
+          try{
+            sendRequest(`http://localhost:5000/api/Places/${placeId}` ,"PATCH" ,JSON.stringify({
+              title:formState.inputs.title.value,
+              description:formState.inputs.description.value,
+            }),{
+                "Content-Type":"application/json"
+              } 
+              )
+            
+          }catch(err)
+          {
+            console.log(err)
+          }
+        })()
+       
+
     console.log(formState.inputs);
   };
-
-  if (!identifiedPlace) {
-    return (
-      <div className="center">
-        <h2>Could not find place!</h2>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
       <div className="center">
-        <h2>Loading...</h2>
+          <MoonLoader color='green' loading={isLoading} size="70px" />
       </div>
     );
   }
 
+  if (!loadedPlace && isLoading ) {
+    return (
+      <div className="center">
+         <h1>couldn't find places</h1>
+      </div>
+    );
+  }
+
+
   return (
+    <>
+    {!isLoading && loadedPlace &&    
+    
     <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
       <Input
         id="title"
@@ -114,8 +117,8 @@ const UpdatePlace = () => {
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
         onInput={inputHandler}
-        initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
+        initialValue={loadedPlace.title}
+        initialValid={true}
       />
       <Input
         id="description"
@@ -124,13 +127,15 @@ const UpdatePlace = () => {
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a valid description (min. 5 characters)."
         onInput={inputHandler}
-        initialValue={formState.inputs.description.value}
-        initialValid={formState.inputs.description.isValid}
+        initialValue={loadedPlace.description}
+        initialValid={true}
       />
       <Button type="submit" disabled={!formState.isValid}>
         UPDATE PLACE
       </Button>
     </form>
+    }
+    </>
   );
 };
 

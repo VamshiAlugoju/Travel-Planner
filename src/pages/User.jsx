@@ -1,32 +1,36 @@
  
- import React , {useEffect , useState} from 'react'
+ import React , {useContext, useEffect , useState} from 'react'
  import Userlist from '../components/Userlist'
 import { MoonLoader } from 'react-spinners'
+import useHttpClient from '../shared/hooks/http-hook';
 import './Auth.css';
+import { AuthContext } from '../shared/context/auth-context';
+ 
+
  const User = () => {
    
-   const[loading , setloading] = useState(false)
+    const {isLoading,sendRequest} = useHttpClient()
     const[ User,setUser] = useState([])
-
+    const auth = useContext(AuthContext)
    useEffect(()=>{
-      
-      setloading(true)
+    try{
 
-     fetch("http://localhost:5000/api/users").then(res=>res.json()).then(data=>{
-      setUser(data)
-      setloading(false)
-   })
-     .catch(err=>{
-      setloading(false)
-      console.log(err)
-     })
-
-   } , [])
+       async function fetchdata (){
+        const data = await sendRequest("http://localhost:5000/api/users") 
+        setUser(data)
+      }
+      fetchdata()
+    }
+    catch(err){
+      // console.log(err)
+    }
+    
+   }, [])
   
    return (
       <div>
-        {loading ? <div className='spinner' >
-     <MoonLoader color='green' loading={loading} size="70px" />
+        {isLoading ? <div className='spinner' >
+     <MoonLoader color='green' loading={isLoading} size="70px" />
      </div> : 
        <Userlist items = {User}/>
      } 

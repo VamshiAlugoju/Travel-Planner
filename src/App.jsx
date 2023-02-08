@@ -15,9 +15,12 @@ import { useCallback , useState } from "react"
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId , setuserId] = useState()
 
-  const login = useCallback(() => {
+  const login = useCallback((uId) => {
     setIsLoggedIn(true);
+    setuserId(uId)
+    console.log(userId)
   }, []);
 
   const logout = useCallback(() => {
@@ -63,7 +66,7 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{ isLoggedIn: isLoggedIn,userId:userId , login: login, logout: logout }}
     >
       <Router>
         <MainNavigation />

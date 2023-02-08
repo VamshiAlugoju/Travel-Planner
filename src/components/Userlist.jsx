@@ -4,7 +4,8 @@ import "./UserItem.css"
 import "./UsersList.css" 
 
 const Userlist =  (props) => {
-  
+       
+    console.log(props.items.length)
     if(props.items.length === 0)
     {
         return(
@@ -13,8 +14,8 @@ const Userlist =  (props) => {
             </div>
         )
     }
-
-    console.log(props.items)
+ 
+    
 
   return (
     <div className='users-list' >

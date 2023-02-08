@@ -4,6 +4,8 @@ import { MoonLoader } from 'react-spinners';
 import Card from '../shared/components/UIElements/Card';
 import Input from '../shared/components/Button/Input';
 import Button from '../shared/components/Button/Button';
+ import useHttpClient from '../shared/hooks/http-hook';
+import ImageUpload from '../shared/components/UIElements/ImageUpload';
 
 import {
   VALIDATOR_EMAIL,
@@ -21,8 +23,7 @@ import './Auth.css';
   const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const [loading , setloading] = useState(false)
- 
+  const {isLoading , sendRequest} = useHttpClient()
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -42,7 +43,8 @@ import './Auth.css';
       setFormData(
         {
           ...formState.inputs,
-          name: undefined
+          name: undefined,
+          image:undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -53,6 +55,10 @@ import './Auth.css';
           name: {
             value: '',
             isValid: false
+          },
+          image:{
+            value:null,
+            isValid:false
           }
         },
         false
@@ -63,61 +69,41 @@ import './Auth.css';
 
 
   const authSubmitHandler =async event => {
-
     event.preventDefault();
-    setloading(true)
-
+  
     if(isLoginMode)
     {
       try{
-        let response = await fetch("http://localhost:5000/api/users/login",{
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-            email:formState.inputs.email.value,
-            password:formState.inputs.password.value 
-          })
-        });
+        const url = "http://localhost:5000/api/users/login";
 
-        let responseData = await response.json()
-         
-        if(!response.ok)
-        { 
-           throw new Error(responseData.message)
-        }
-        setloading(false)
-        auth.login()
+        let user =  await sendRequest(url,"POST",JSON.stringify({
+          email:formState.inputs.email.value,
+          password:formState.inputs.password.value 
+        }),{
+          "Content-Type":"application/json"
+        });
+        
+        auth.login(user.Id)
       }catch(err){
-        setloading(false)
         console.log( "this error " , err)
       }
-    }
-    else{
+    } else{
       try{
-        let response = await fetch("http://localhost:5000/api/users/signUp",{
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-            name:formState.inputs.name.value,
-            email:formState.inputs.email.value,
-            password:formState.inputs.password.value 
-          })
-        });
-
-        let responseData = await response.json()
          
-        if(!response.ok)
-        { 
-           throw new Error(responseData.message)
-        }
-        setloading(false)
-        auth.login()
+        let formData = new FormData()
+        formData.append("name",formState.inputs.name.value)
+        formData.append("email",formState.inputs.email.value)
+        formData.append("password",formState.inputs.password.value)
+        formData.append("image",formState.inputs.image.value)
+
+
+        let user =   await sendRequest("http://localhost:5000/api/users/signUp",
+             "POST", 
+              formData 
+        );
+       
+        auth.login(user.user.id)
       }catch(err){
-        setloading(false)
         console.log( "this error " , err)
       }
     }
@@ -129,8 +115,8 @@ import './Auth.css';
   return (
     <>  
      
-    { loading ? <div className='spinner' >
-     <MoonLoader color='green' loading={loading} size="70px" />
+    { isLoading ? <div className='spinner' >
+     <MoonLoader color='green' loading={isLoading} size="70px" />
      </div> :
      <Card className="authentication">
      <h2>Login Required</h2>
@@ -147,6 +133,8 @@ import './Auth.css';
            onInput={inputHandler}
          />
        )}
+
+      
        <Input
          element="input"
          id="email"
@@ -161,10 +149,13 @@ import './Auth.css';
          id="password"
          type="password"
          label="Password"
-         validators={[VALIDATOR_MINLENGTH(5)]}
+         validators={[VALIDATOR_MINLENGTH(6)]}
          errorText="Please enter a valid password, at least 5 characters."
          onInput={inputHandler}
        />
+        {!isLoginMode && 
+            <ImageUpload center id="image" onInput = {inputHandler} />
+       }
        <Button type="submit" disabled={!formState.isValid}>
          {isLoginMode ? 'LOGIN' : 'SIGNUP'}
        </Button>

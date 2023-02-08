@@ -20,15 +20,16 @@ function PlaceList(props) {
   return (
     <ul>
       {props.items.map(place => {
-        return <PlaceItem
-          key={place.id}
-          id={place.id}
+        return <PlaceItem 
+          key={place._id}
+          id={place._id}
           image={place.image}
           title={place.title}
           description={place.description}
           address={place.address}
-          createrId ={place.creater}
+          createrId ={place.creator}
           coordinates = {place.coordinates}
+          onDelete = {props.deletedPlace}
         />;
       })}
     </ul>
