@@ -14,22 +14,24 @@ import { useCallback , useState } from "react"
 
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+   
+  const [token, settoken] = useState(false);
   const [userId , setuserId] = useState()
 
-  const login = useCallback((uId) => {
-    setIsLoggedIn(true);
+  const login = useCallback((uId , token) => {
+    settoken(token);
     setuserId(uId)
     console.log(userId)
   }, []);
 
   const logout = useCallback(() => {
+    settoken(null)
     setIsLoggedIn(false);
   }, []);
 
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
         <Route path="/" exact>
@@ -66,7 +68,7 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn,userId:userId , login: login, logout: logout }}
+      value={{ isLoggedIn: !!token, token:token, userId:userId , login: login, logout: logout }}
     >
       <Router>
         <MainNavigation />

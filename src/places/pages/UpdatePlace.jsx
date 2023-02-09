@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 import Input from '../../shared/components/Button/Input';
@@ -10,6 +10,7 @@ import {
 } from '../../shared/components/validators';
 import { useForm } from '../../shared/hooks/hook';
 import useHttpClient from '../../shared/hooks/http-hook';
+import { AuthContext } from '../../shared/context/auth-context';
 
 import "./NewPlace.css"
   
@@ -17,9 +18,10 @@ import "./NewPlace.css"
 
 
 const UpdatePlace = () => {
-  // const [isLoading, setIsLoading] = useState(true);
+  
   const placeId = useParams().placeId;
   const {isLoading , sendRequest} = useHttpClient()
+  const auth = useContext(AuthContext)
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
@@ -65,7 +67,6 @@ const UpdatePlace = () => {
   const placeUpdateSubmitHandler = event => {
     event.preventDefault();
       
-
         ( async function (){
 
           try{
@@ -73,7 +74,8 @@ const UpdatePlace = () => {
               title:formState.inputs.title.value,
               description:formState.inputs.description.value,
             }),{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                Authorization:"Bearer " + auth.token
               } 
               )
             
@@ -102,7 +104,6 @@ const UpdatePlace = () => {
       </div>
     );
   }
-
 
   return (
     <>

@@ -87,7 +87,7 @@ const NewPlace = () => {
 
       formData.append("creator", auth.userId)
 
-      await sendRequest("http://localhost:5000/api/Places" ,"POST" , formData )
+      await sendRequest("http://localhost:5000/api/Places" ,"POST" , formData,{Authorization:"Bearer " + auth.token})
 
      history.push("/")
     }

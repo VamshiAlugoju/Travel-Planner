@@ -27,7 +27,9 @@ function PlaceItem(props) {
    const ConfirmDeleteHandler =async ()=>{
                let userId = auth.userId;
                try{
-                   await sendRequest(`http://localhost:5000/api/Places/${props.id}`,"DELETE") 
+                   await sendRequest(`http://localhost:5000/api/Places/${props.id}`,"DELETE" , " ",
+                 {  Authorization:"Bearer " + auth.token}
+                    ) 
                 }catch(err){
                     console.log(err)
                 }

@@ -16,9 +16,11 @@ import React ,{ useState , useEffect ,useRef  , useCallback } from "react"
                 method,
                 body,
                 headers,
-                signal:httpAbortController.signal}
+                signal:httpAbortController.signal
+            }
                 )
                 let responseData = await response.json()
+                console.log(responseData)
               activeHttprequests.current = activeHttprequests.current.filter(abrtctrl=>abrtctrl!=httpAbortController)
                 if(!response.ok)
                 { 

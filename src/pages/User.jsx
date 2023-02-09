@@ -8,18 +8,20 @@ import { AuthContext } from '../shared/context/auth-context';
  
 
  const User = () => {
+  
    
     const {isLoading,sendRequest} = useHttpClient()
     const[ User,setUser] = useState([])
     const auth = useContext(AuthContext)
+
    useEffect(()=>{
     try{
 
        async function fetchdata (){
         const data = await sendRequest("http://localhost:5000/api/users") 
-        setUser(data)
+        setUser(data.allUsers)
       }
-      fetchdata()
+      fetchdata()  
     }
     catch(err){
       // console.log(err)
