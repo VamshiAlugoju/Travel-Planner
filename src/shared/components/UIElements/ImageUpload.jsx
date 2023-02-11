@@ -58,7 +58,7 @@ export default function ImageUpload(props) {
       <div className={`image-upload ${props.center && "center"}`}>
           <div className='image-upload__preview'>
           { previewUrl && <img src={previewUrl} alt="preview" />}
-          { !previewUrl &&  <p>please select an image</p>}
+          { !previewUrl &&  <p>Please select an Image</p>}
 
           </div>
            <Button type="button" onClick={pickImagehandler} >PICK IMAGE</Button>

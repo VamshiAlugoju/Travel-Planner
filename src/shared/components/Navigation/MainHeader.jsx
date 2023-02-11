@@ -7,6 +7,6 @@ function MainHeader(props)
             {props.children}
          </header>
     )
-}
+} 
 
 export default MainHeader;

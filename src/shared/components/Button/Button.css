@@ -1,14 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
 .button {
   font: inherit;
   padding: 0.5rem 1.5rem;
-  border: 1px solid #ff0055;
-  border-radius: 4px;
-  background: #ff0055;
-  color: white;
+  border: 1px solid #ffffff;
+  background-color: #fff;
+  border-radius: 24px;
+  color: rgb(0, 0, 0);
   cursor: pointer;
   margin-right: 1rem;
   text-decoration: none;
   display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+  transition: 0.5s;
 }
 
 .button:focus {
@@ -17,8 +22,9 @@
 
 .button:hover,
 .button:active {
-  background: #ff4382;
-  border-color: #ff4382;
+  background: #F6F9FE;
+  color: #174ea6;
+
 }
 
 .button--inverse {
@@ -28,20 +34,25 @@
 
 .button--inverse:hover,
 .button--inverse:active {
-  color: white;
-  background: #ff0055;
+  color: rgb(2, 2, 2);
+  /* background: #ff0055; */
 }
 
 .button--danger {
+  color: white;
   background: #830000;
   border-color: #830000;
 }
 
 .button--danger:hover,
 .button--danger:active {
-  background: #f34343;
-  border-color: #f34343;
+  background: #ffffff;
+   color: rgb(245, 80, 80);
+   border-color: #fbfbfb;
 }
+
+
+
 
 .button:disabled,
 .button:hover:disabled,

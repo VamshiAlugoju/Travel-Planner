@@ -11,7 +11,7 @@ import {
 import { useForm } from '../../shared/hooks/hook';
 import useHttpClient from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
-
+ 
 import "./NewPlace.css"
   
   

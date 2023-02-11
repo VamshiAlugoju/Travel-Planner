@@ -82,8 +82,8 @@ import './Auth.css';
         }),{
           "Content-Type":"application/json"
         });
-        
-        auth.login(user.userId , user.token)
+         
+        auth.login(user.userId , user.token , user.name)
       }catch(err){
         console.log( "this error " , err)
       } 
@@ -102,7 +102,7 @@ import './Auth.css';
               formData 
         );
        
-        auth.login(user.userId,user.token)
+        auth.login(user.userId,user.token ,user.name)
       }catch(err){
         console.log( "this error " , err)
       }

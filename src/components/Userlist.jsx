@@ -8,8 +8,9 @@ const Userlist =  (props) => {
         if(props.items.length === 0)
         {
             return(
-                <div className='center' >
-                    <h2>no users found</h2>
+                <div className='no-users' >
+                    <h2>No Users Found</h2>
+                    <p> please Signup </p>
                 </div>
             )
         }
@@ -17,7 +18,7 @@ const Userlist =  (props) => {
  
   return (
     <div className='users-list' >
- 
+  
         <ul>
             {props.items.map(user=> <UserItem 
             key={user.id}
@@ -27,7 +28,7 @@ const Userlist =  (props) => {
             placesCount = {user.places.length}
              />)}
         </ul>
-    </div>
+    </div> 
   )
 }
 

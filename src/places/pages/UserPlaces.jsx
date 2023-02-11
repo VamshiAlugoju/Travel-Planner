@@ -22,6 +22,7 @@ import useHttpClient from '../../shared/hooks/http-hook';
         ( async function (){
                  const url = `http://localhost:5000/api/Places/user/${userId}`
                const data = await sendRequest(url)
+              
                setPlaces(data.place)
         })()
       
@@ -31,7 +32,7 @@ import useHttpClient from '../../shared/hooks/http-hook';
      
   
     return ( 
-         <PlaceList items = {Places} deletedPlace ={Deleted} />
+         <PlaceList loading={isLoading} items = {Places} deletedPlace ={Deleted} />
      )
  }
  

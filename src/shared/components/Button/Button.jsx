@@ -26,7 +26,7 @@ const Button = props => {
         {props.children}
       </Link>
     );
-  }
+  } 
   return (
     <button
       className={`button button--${props.size || 'default'} ${props.inverse &&

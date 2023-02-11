@@ -20,10 +20,10 @@ const ModalOverlay = props => {
       >
         <div className={`modal__content ${props.contentClass}`}>
           {props.children}
-        </div>
+        </div> 
         <footer className={`modal__footer ${props.footerClass}`}>
           {props.footer}
-        </footer>
+        </footer> 
       </form>
     </div>
   );
@@ -36,7 +36,7 @@ const Modal = props => {
       {props.show && <Backdrop onClick={props.onCancel} />}
       <CSSTransition
         in={props.show}
-        mountOnEnter
+        mountOnEnter 
         unmountOnExit
         timeout={200}
         classNames="modal"

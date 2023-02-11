@@ -16,10 +16,29 @@ import { AuthContext } from '../shared/context/auth-context';
 
    useEffect(()=>{
     try{
-
+ 
        async function fetchdata (){
         const data = await sendRequest("http://localhost:5000/api/users") 
-        setUser(data.allUsers)
+        let changedArray = new Array(data.allUsers.length);    // created to ensure 
+        let loggedUser;                                        // that always the logged
+        let i =1;                                              // user stays on top
+        if(data.allUsers.length!==0 && auth.isLoggedIn){
+          data.allUsers.forEach(ele => {
+               if(ele._id === auth.userId){
+                   loggedUser = ele;
+               }
+               else{
+                 changedArray[i] = ele;
+               }
+               i++;
+          });
+            changedArray[0] = loggedUser;
+            setUser(changedArray)
+        }
+        else{
+          setUser(data.allUsers)
+        }
+          console.log(changedArray)
       }
       fetchdata()  
     }

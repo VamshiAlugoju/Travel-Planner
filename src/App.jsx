@@ -17,10 +17,11 @@ const App = () => {
    
   const [token, settoken] = useState(false);
   const [userId , setuserId] = useState()
-
-  const login = useCallback((uId , token) => {
+  const [userName,setuserName] = useState()
+  const login = useCallback((uId , token , username) => {
     settoken(token);
-    setuserId(uId)
+    setuserId(uId);
+    setuserName(username)
     console.log(userId)
   }, []);
 
@@ -68,7 +69,7 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: !!token, token:token, userId:userId , login: login, logout: logout }}
+      value={{ isLoggedIn: !!token, token:token, userId:userId,userName:userName , login: login, logout: logout }}
     >
       <Router>
         <MainNavigation />

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 .user-item {
   margin: 1rem;
   width: calc(45% - 2rem);
@@ -14,6 +15,10 @@
   padding: 1rem;
   color: white;
   background: #292929;
+  transition: 0.3s;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  text-transform: capitalize;
 }
 
 .user-item a:hover,
@@ -39,7 +44,7 @@
 }
 
 .user-item:hover h2,
-.user-item:active h2,
+.user-item:active h2, 
 .user-item:hover h3,
 .user-item:active h3 {
   color: #292929;

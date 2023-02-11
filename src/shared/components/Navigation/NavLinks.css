@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
 .nav-links {
   list-style: none;
   margin: 0;
@@ -8,6 +10,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
+  text-transform: capitalize;
 }
 
 .nav-links li {
@@ -16,7 +20,7 @@
 
 .nav-links a {
   border: 1px solid transparent;
-  color: #292929;
+  color: #000000;
   text-decoration: none;
   padding: 0.5rem;
 }
@@ -24,11 +28,15 @@
 .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
-  background: #f8df00;
-  border-color: #292929;
-  color: #292929;
+  background: #f4f800;
+  border: 5px;
+  border-color: #000000;
+  color: #000000;
+  border-radius: 0px;
+  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
 }
 
+ 
 .nav-links button {
   cursor: pointer;
   border: 1px solid #292929;
@@ -48,9 +56,24 @@
   color: white;
 }
 
+.active-user{
+  display: flex;
+  align-items: center;
+}
+
+.online{
+  width: 10px;
+  height: 10px;
+  background-color: rgb(2, 250, 2);
+  border-radius: 15rem;
+  margin: 0 10px;
+  border:  1px solid rgb(65, 65, 65);
+}
+
 @media (min-width: 768px) {
   .nav-links {
     flex-direction: row;
+    margin-right: 5rem;
   }
 
   .nav-links li {
@@ -58,7 +81,7 @@
   }
 
   .nav-links a {
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
   }
 
