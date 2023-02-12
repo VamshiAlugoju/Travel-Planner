@@ -70,7 +70,7 @@ const UpdatePlace = () => {
         ( async function (){
 
           try{
-            sendRequest(`http://localhost:5000/api/Places/${placeId}` ,"PATCH" ,JSON.stringify({
+            sendRequest(import.meta.env.VITE_REACT_APP_BACKEND_URL+`/Places/${placeId}` ,"PATCH" ,JSON.stringify({
               title:formState.inputs.title.value,
               description:formState.inputs.description.value,
             }),{
@@ -85,8 +85,6 @@ const UpdatePlace = () => {
           }
         })()
        
-
-    console.log(formState.inputs);
   };
 
   if (isLoading) {

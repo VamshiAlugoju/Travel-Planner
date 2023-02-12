@@ -20,7 +20,7 @@ import React ,{ useState , useEffect ,useRef  , useCallback } from "react"
             }
                 )
                 let responseData = await response.json()
-                // console.log(responseData)
+               
               activeHttprequests.current = activeHttprequests.current.filter(abrtctrl=>abrtctrl!=httpAbortController)
                 if(!response.ok)
                 { 

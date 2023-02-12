@@ -27,7 +27,7 @@ function PlaceItem(props) {
    const ConfirmDeleteHandler =async ()=>{
                let userId = auth.userId;
                try{
-                   await sendRequest(`http://localhost:5000/api/Places/${props.id}`,"DELETE" , " ",
+                   await sendRequest(import.meta.env.VITE_REACT_APP_BACKEND_URL+`/Places/${props.id}`,"DELETE" , " ",
                  {  Authorization:"Bearer " + auth.token}
                     ) 
                 }catch(err){
@@ -38,7 +38,7 @@ function PlaceItem(props) {
                 props.onDelete(props.id)
             } 
  
- 
+            
     return ( 
        <>  
          {/*   this model appear when we click show map   */}
@@ -76,7 +76,7 @@ function PlaceItem(props) {
             <Card className="place-item__content" >  
 
     <div className="place-item__image">
-    <img src={ `http://localhost:5000/${props.image}`} alt={props.title} />
+    <img src={ import.meta.env.VITE_REACT_APP_ASSET_URL+`/${props.image}`} alt={props.title} />
     </div>
      <div className="place-item__info">
         <h2>{props.title}</h2>
@@ -91,6 +91,7 @@ function PlaceItem(props) {
         }
     
         {props.createrId === auth.userId && 
+           
          < Button danger onClick = {showDeleteHandlerWarning} > Delete</ Button>
          }
 

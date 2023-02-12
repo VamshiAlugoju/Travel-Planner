@@ -16,18 +16,18 @@ import { useCallback , useState } from "react"
 const App = () => {
    
   const [token, settoken] = useState(false);
-  const [userId , setuserId] = useState()
+  const [userId , setuserId] = useState(null)
   const [userName,setuserName] = useState()
   const login = useCallback((uId , token , username) => {
     settoken(token);
     setuserId(uId);
     setuserName(username)
-    console.log(userId)
+   
   }, []);
 
   const logout = useCallback(() => {
     settoken(null)
-    setIsLoggedIn(false);
+    setuserId(null)
   }, []);
 
   let routes;

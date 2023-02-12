@@ -8,8 +8,8 @@ import { AuthContext } from '../shared/context/auth-context';
  
 
  const User = () => {
-  
-   
+
+ 
     const {isLoading,sendRequest} = useHttpClient()
     const[ User,setUser] = useState([])
     const auth = useContext(AuthContext)
@@ -18,10 +18,11 @@ import { AuthContext } from '../shared/context/auth-context';
     try{
  
        async function fetchdata (){
-        const data = await sendRequest("http://localhost:5000/api/users") 
+        const data = await sendRequest(import.meta.env.VITE_REACT_APP_BACKEND_URL+"/users") 
         let changedArray = new Array(data.allUsers.length);    // created to ensure 
         let loggedUser;                                        // that always the logged
-        let i =1;                                              // user stays on top
+        let i =1;                        
+                            // user stays on top
         if(data.allUsers.length!==0 && auth.isLoggedIn){
           data.allUsers.forEach(ele => {
                if(ele._id === auth.userId){
@@ -38,12 +39,12 @@ import { AuthContext } from '../shared/context/auth-context';
         else{
           setUser(data.allUsers)
         }
-          console.log(changedArray)
+          
       }
       fetchdata()  
     }
     catch(err){
-      // console.log(err)
+       
     }
     
    }, [])

@@ -74,7 +74,7 @@ import './Auth.css';
     if(isLoginMode)
     {
       try{
-        const url = "http://localhost:5000/api/users/login";
+        const url =  import.meta.env.VITE_REACT_APP_BACKEND_URL+"/users/login";
 
         let user =  await sendRequest(url,"POST",JSON.stringify({
           email:formState.inputs.email.value,
@@ -97,7 +97,7 @@ import './Auth.css';
         formData.append("image",formState.inputs.image.value)
 
 
-        let user =   await sendRequest("http://localhost:5000/api/users/signUp",
+        let user =   await sendRequest(import.meta.env.VITE_REACT_APP_BACKEND_URL+"/users/signUp",
              "POST", 
               formData 
         );

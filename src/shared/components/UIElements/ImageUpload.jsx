@@ -12,7 +12,7 @@ export default function ImageUpload(props) {
        
      const pickHandler = e=>{
       
-      console.log(e.target.files)
+   
       let pickedFile;
       let isValidvalue = isValid;
       if(e.target.files && e.target.files.length === 1)

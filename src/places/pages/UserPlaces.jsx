@@ -20,7 +20,7 @@ import useHttpClient from '../../shared/hooks/http-hook';
  
        useEffect(()=>{
         ( async function (){
-                 const url = `http://localhost:5000/api/Places/user/${userId}`
+                 const url =import.meta.env.VITE_REACT_APP_BACKEND_URL+`/Places/user/${userId}`
                const data = await sendRequest(url)
               
                setPlaces(data.place)
