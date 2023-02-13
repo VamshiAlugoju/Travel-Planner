@@ -63,7 +63,7 @@
 
 .online{
   width: 10px;
-  height: 10px;
+  height: 10px; 
   background-color: rgb(2, 250, 2);
   border-radius: 15rem;
   margin: 0 10px;
@@ -73,7 +73,7 @@
 @media (min-width: 768px) {
   .nav-links {
     flex-direction: row;
-    margin-right: 5rem;
+    /* margin-right: 5rem; */
   }
 
   .nav-links li {

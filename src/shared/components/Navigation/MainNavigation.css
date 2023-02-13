@@ -31,9 +31,10 @@
   color: rgb(0, 0, 0);
   font-size: 3rem;
 }
-
+ 
 .main-navigation__header-nav {
   display: none;
+ 
 }
 
 .main-navigation__drawer-nav {
