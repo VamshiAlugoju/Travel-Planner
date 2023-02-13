@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState,useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams ,useHistory } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 import Input from '../../shared/components/Button/Input';
 import Button from '../../shared/components/Button/Button';
@@ -22,6 +22,7 @@ const UpdatePlace = () => {
   const placeId = useParams().placeId;
   const {isLoading , sendRequest} = useHttpClient()
   const auth = useContext(AuthContext)
+  const history = useHistory()
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
@@ -66,11 +67,13 @@ const UpdatePlace = () => {
 
   const placeUpdateSubmitHandler = event => {
     event.preventDefault();
-      
-        ( async function (){
+    
+    let data;
+          async function update(){
 
           try{
-            sendRequest(import.meta.env.VITE_REACT_APP_BACKEND_URL+`/Places/${placeId}` ,"PATCH" ,JSON.stringify({
+            
+             data =  await sendRequest(import.meta.env.VITE_REACT_APP_BACKEND_URL+`/Places/${placeId}` ,"PATCH" ,JSON.stringify({
               title:formState.inputs.title.value,
               description:formState.inputs.description.value,
             }),{
@@ -78,18 +81,21 @@ const UpdatePlace = () => {
                 Authorization:"Bearer " + auth.token
               } 
               )
-            
-          }catch(err)
-          {
+              
+              }catch(err)
+              {
             console.log(err)
-          }
-        })()
+               }
+        }
+         update()
+      
+        
        
   };
 
   if (isLoading) {
     return (
-      <div className="center">
+      <div className="spinner">
           <MoonLoader color='green' loading={isLoading} size="70px" />
       </div>
     );

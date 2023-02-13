@@ -47,7 +47,7 @@ const App = () => {
         <Route path="/places/:placeId">
           <UpdatePlace />
         </Route>
-        <Redirect to="/" />
+        {/* <Redirect to="/" /> */}
       </Switch>
     );
   } else {
@@ -62,7 +62,7 @@ const App = () => {
         <Route path="/auth">
           <Auth />
         </Route>
-        <Redirect to="/auth" />
+        {/* <Redirect to="/auth" /> */}
       </Switch>
     );
   }
@@ -75,6 +75,7 @@ const App = () => {
         <MainNavigation />
         <main>{routes}</main>
       </Router>
+      
     </AuthContext.Provider>
   );
 };

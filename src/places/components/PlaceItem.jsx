@@ -6,10 +6,13 @@ import Modal from '../../shared/components/UIElements/Modal';
 import Auth from '../../pages/Auth';
 import { AuthContext } from '../../shared/context/auth-context';
 import useHttpClient from '../../shared/hooks/http-hook';
+import { MoonLoader } from 'react-spinners'
+
 
 import "./PlaceItem.css"
 
 function PlaceItem(props) {
+   console.log(props.image)
 
    const auth  = useContext(AuthContext) 
 
@@ -25,6 +28,7 @@ function PlaceItem(props) {
     const showDeleteHandlerWarning = ()=>{setshowConfirmModal(true)}
 
    const ConfirmDeleteHandler =async ()=>{
+              setshowConfirmModal(false)
                let userId = auth.userId;
                try{
                    await sendRequest(import.meta.env.VITE_REACT_APP_BACKEND_URL+`/Places/${props.id}`,"DELETE" , " ",
@@ -33,7 +37,7 @@ function PlaceItem(props) {
                 }catch(err){
                     console.log(err)
                 }
-                setshowConfirmModal(false)
+              
               
                 props.onDelete(props.id)
             } 
@@ -72,11 +76,15 @@ function PlaceItem(props) {
               
  
         
-        <li className='place-item'>
+       { 
+        isLoading ? <div className='spinner' >
+       <MoonLoader color='green' loading={isLoading} size="70px" />
+        </div> :
+       <li className='place-item'>
             <Card className="place-item__content" >  
 
     <div className="place-item__image">
-    <img src={ import.meta.env.VITE_REACT_APP_ASSET_URL+`/${props.image}`} alt={props.title} />
+    <img src={ `http://localhost:5000/images/${props.image}`} alt={props.title} />
     </div>
      <div className="place-item__info">
         <h2>{props.title}</h2>
@@ -97,7 +105,7 @@ function PlaceItem(props) {
 
      </div>
      </Card>
-        </li>
+        </li>}
 
         </>
      );
